@@ -1,10 +1,11 @@
 import React from "react";
-import "./Home.css";
-import cheeseburger from "../../assets/cheeseburger.jpg";
-import hamburger from "../../assets/hamburger.jpeg";
-import veggieBurger from "../../assets/veggieburger.jpg";
-import smashBurger from "../../assets/smashburger.jpg";
-import doubleSmashBurger from "../../assets/doublesmash.jpg";
+import "./homepage.css";
+
+import cheeseburger from "../assets/cheeseburger.jpg";
+import hamburger from "../assets/hamburger.jpeg";
+import veggieBurger from "../assets/veggieburger.jpg";
+import smashBurger from "../assets/smashburger.jpg";
+import doubleSmashBurger from "../assets/doublesmash.jpg";
 
 
 const foodItems = [
@@ -18,7 +19,6 @@ const foodItems = [
 function Home() {
   return (
     <div className="home-container">
-      <marquee behavior="alternate" >Welcome to our restaurant!</marquee>
       <h1>Menu</h1>
       <div className="food-grid">
         {foodItems.map((item) => (
