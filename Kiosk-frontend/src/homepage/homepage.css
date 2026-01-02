@@ -35,3 +35,39 @@
   margin: 10px 0;
   color: white;
 }
+
+.price {
+  color: #646cff;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.card-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.add-btn {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.details-btn {
+  background-color: transparent;
+  color: #ccc;
+  border: 1px solid #555;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.details-btn:hover {
+  border-color: #646cff;
+  color: white;
+}
