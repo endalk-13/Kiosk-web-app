@@ -1,12 +1,11 @@
 import React from "react";
 import "./homepage.css";
-
+import { useStore } from "../StoreContext"; // Import the context hook
 import cheeseburger from "../assets/cheeseburger.jpg";
 import hamburger from "../assets/hamburger.jpeg";
 import veggieBurger from "../assets/veggieburger.jpg";
 import smashBurger from "../assets/smashburger.jpg";
 import doubleSmashBurger from "../assets/doublesmash.jpg";
-
 
 const foodItems = [
   { id: 1, name: "Classic Cheeseburger", description: "A juicy beef patty with cheese, lettuce, and tomato", price: 12.99, image: cheeseburger },
@@ -17,6 +16,8 @@ const foodItems = [
 ];
 
 function Home() {
+  const { addToCart } = useStore(); // Pull the addToCart function from context
+
   return (
     <div className="home-container">
       <h1>Menu</h1>
@@ -28,7 +29,10 @@ function Home() {
             <h4>{item.description}</h4>
             <p className="price">${item.price.toFixed(2)}</p>
             <div className="card-buttons">
-              <button className="add-btn">Add to Cart</button>
+              {/* Trigger the function on click */}
+              <button className="add-btn" onClick={() => addToCart(item)}>
+                Add to Cart
+              </button>
               <button className="details-btn">View Details</button>
             </div>
           </div>
