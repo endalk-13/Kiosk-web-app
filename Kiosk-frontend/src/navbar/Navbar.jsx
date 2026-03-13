@@ -14,7 +14,8 @@ function Navbar() {
         <ul className="navbar-menu">
             <li className="navbar-item"><Link to="/">Home</Link></li>
             <li className="navbar-item"><Link to="/cart">Cart</Link></li>
-            <li className="navbar-item"><Link to="/orders">Check-out</Link></li>
+            <li className="navbar-item"><Link to="/checkout">Check-out</Link></li>
+            <li className="navbar-item"><Link to="/kitchen">Kitchen</Link></li>
         </ul>
 
        
