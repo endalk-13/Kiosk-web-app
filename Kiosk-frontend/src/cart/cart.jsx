@@ -2,6 +2,7 @@ import React from "react";
 import { useStore } from "../StoreContext";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css"; // Make sure to create this file!
+import Custom from "../Custom"; // Import the Custom component
 
 function Cart() {
   const { cart } = useStore();
@@ -36,7 +37,7 @@ function Cart() {
           );
         })}
       </div>
-
+        <Custom/>
       {cart.length > 0 && (
         <button className="checkout-btn" onClick={() => navigate("/checkout")}>
           Proceed to Checkout
