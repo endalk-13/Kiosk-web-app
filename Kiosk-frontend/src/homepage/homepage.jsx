@@ -1,6 +1,7 @@
 import React from "react";
 import "./homepage.css";
 import { useStore } from "../StoreContext"; // Import the context hook
+import Custom from "../custom"; 
 import cheeseburger from "../assets/cheeseburger.jpg";
 import hamburger from "../assets/hamburger.jpeg";
 import veggieBurger from "../assets/veggieburger.jpg";
@@ -33,7 +34,7 @@ function Home() {
               <button className="add-btn" onClick={() => addToCart(item)}>
                 Add to Cart
               </button>
-              <button className="details-btn">View Details</button>
+              <button className="details-btn" onClick={() => window.location.href = "/Custom"}>View Details</button>
             </div>
           </div>
         ))}
