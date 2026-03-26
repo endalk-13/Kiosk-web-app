@@ -7,8 +7,25 @@ export const StoreProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
 
   // add item to cart
+  // Updated add item to cart logic
   const addToCart = (item) => {
-    setCart((prev) => [...prev, item]);
+    setCart((prev) => {
+      // 1. Check if this item is already in the cart
+      const existingItem = prev.find((cartItem) => cartItem.id === item.id);
+
+      if (existingItem) {
+        // 2. If it exists, map through and increase the qty of that specific ID
+        return prev.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, qty: cartItem.qty + 1 }
+            : cartItem
+        );
+      }
+
+      // 3. If it's a new item, add it and initialize qty to 1
+      // We also wrap price in Number() just in case it's a string
+      return [...prev, { ...item, qty: 1, price: Number(item.price) }];
+    });
   };
 
   // remove item from cart
