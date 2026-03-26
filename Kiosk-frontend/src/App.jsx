@@ -5,6 +5,7 @@ import Home from "./homepage/homepage";
 import Cart from "./cart/cart";
 import Checkout from "./payment/checkout";
 import Kitchen from "./kitchen/kitchen";
+import LandingPage from "./landingpage";
 
 import { StoreProvider } from "./StoreContext";
 
@@ -14,7 +15,8 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/kitchen" element={<Kitchen />} />
