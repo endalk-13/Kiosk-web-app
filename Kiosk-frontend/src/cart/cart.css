@@ -9,11 +9,11 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  border: 1px solid #ddd;
+  border: 2px solid #c8b012;
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(216, 216, 216, 0.05);
 }
 
 .cart-img {
@@ -32,12 +32,12 @@
 .cart-details h3 {
   margin: 0;
   font-size: 1.2rem;
-  color: #333;
+  color: #a16408;
 }
 
 .cart-details p {
   margin: 0;
-  color: #555;
+  color: #f9f9f9;
 }
 
 .cart-subtotal {
