@@ -8,27 +8,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/cart")
 public class cartController {
 
-    private final cartService cartService;
+    private final cartService CartService;
 
     public cartController(cartService cartService) {
-        this.cartService = cartService;
+        this.CartService = cartService;
     }
 
-    @GetMapping
+    @GetMapping("/getcart")
     public Cart getCart() {
-        return cartService.getCart();
+        return CartService.getCartById();
     }
 
     @PostMapping("/add")
     public void addItem(@RequestParam String item,
                         @RequestParam double price) {
-        cartService.addItem(item, price);
+        CartService.addItem(item, price);
     }
 
     @PostMapping("/remove")
     public void removeItem(@RequestParam String item,
                            @RequestParam double price) {
-        cartService.removeItem(item, price);
+        CartService.removeItem(item, price);
     }
 
     @PostMapping("/clear")

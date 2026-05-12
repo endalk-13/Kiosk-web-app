@@ -1,5 +1,9 @@
 package com.example.kiosk.Repo;
 
-public interface cartRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.kiosk.Models.Cart;
+
+public interface cartRepo extends JpaRepository<Cart, Long> {
     
 }

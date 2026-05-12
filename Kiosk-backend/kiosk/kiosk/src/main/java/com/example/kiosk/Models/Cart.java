@@ -2,8 +2,13 @@ package com.example.kiosk.Models;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.Column;
 public class Cart {
     
+	@Column(name="cart_Id")
+	private long Id;
+	
 private List<String> itemsList = new ArrayList<>();
     private double totalPrice;
 
