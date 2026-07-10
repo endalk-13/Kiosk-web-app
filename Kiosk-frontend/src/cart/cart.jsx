@@ -1,50 +1,63 @@
-
 import React from "react";
+import "./cart.css";
 
-
-
-
-
-
-function Cart({ cart, total }) {
+function Cart({ cart, setCart }) {
   const TAX_RATE = 0.1;
-  const tax = total * TAX_RATE;
-  const grandTotal = total + tax;
 
-  const formatUSD = (amount) =>
-    `$${amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const increaseQty = (id) => {
+    setCart(cart.map(item =>
+      item.id === id ? { ...item, qty: item.qty + 1 } : item
+    ));
+  };
+
+  const decreaseQty = (id) => {
+    setCart(cart.map(item =>
+      item.id === id
+        ? { ...item, qty: item.qty > 1 ? item.qty - 1 : 1 }
+        : item
+    ));
+  };
+
+  const removeItem = (id) => {
+    setCart(cart.filter(item => item.id !== id));
+  };
+
+  const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const tax = subtotal * TAX_RATE;
+  const total = subtotal + tax;
 
   return (
-    <div className="receipt">
-      {cart.map((item) => (
-        <div className="receipt-item" key={item.id}>
-          <div className="row">
-            <strong>{item.name}</strong>
-            <span>{formatUSD(item.price * item.qty)}</span>
+    <div className="cart-container">
+      {cart.map(item => (
+        <div key={item.id} className="cart-item">
+          <div className="item-type">
+            {item.type === "drink" ? "Softdrinks" : item.type.toUpperCase()}
           </div>
-          <div className="row small">
-            <span>Qty: {item.qty}</span>
+
+          <div className="item-row">
+            <div>
+              <span className="item-name">{item.name}</span>
+              <div className="controls">
+                <button onClick={() => increaseQty(item.id)}>+</button>
+                <button onClick={() => decreaseQty(item.id)}>-</button>
+                <button onClick={() => removeItem(item.id)}>Remove</button>
+                <span> Qty: {item.qty}</span>
+              </div>
+            </div>
+
+            <span className="price">${(item.price * item.qty).toFixed(2)}</span>
           </div>
-          <hr />
         </div>
       ))}
 
       <div className="summary">
-        <div className="row">
-          <span>Subtotal</span>
-          <span>{formatUSD(total)}</span>
-        </div>
-        <div className="row">
-          <span>Tax (10%)</span>
-          <span>{formatUSD(tax)}</span>
-        </div>
-        <div className="row total">
-          <strong>Total</strong>
-          <strong>{formatUSD(grandTotal)}</strong>
-        </div>
+        <p>Subtotal: ${subtotal.toFixed(2)}</p>
+        <p>Tax (10%): ${tax.toFixed(2)}</p>
+        <h3>Total: ${total.toFixed(2)}</h3>
       </div>
     </div>
   );
 }
 
 export default Cart;
+
