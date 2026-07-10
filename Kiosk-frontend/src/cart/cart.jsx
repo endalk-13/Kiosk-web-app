@@ -47,4 +47,9 @@ function Cart() {
   );
 }
 
+<<<<<<< HEAD
 export default Cart;
+=======
+export default Cart;
+
+>>>>>>> development

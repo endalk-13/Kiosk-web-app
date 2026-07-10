@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./navbar/Navbar";
-import Home from "./homepage/homepage";
-import Cart from "./cart/cart";
-import Checkout from "./payment/checkout";
-import Kitchen from "./kitchen/kitchen";
-import LandingPage from "./landingpage";
+import { StoreProvider } from "./cart/StoreContext";
+import Navbar from "./navbar/Navbar.jsx";
+import Home from "./homepage/homepage.jsx";
+import Cart from "./cart/cart.jsx";
+import Checkout from "./payment/checkout.jsx";
+import Kitchen from "./kitchen/Kitchen.jsx";
 
 import { StoreProvider } from "./StoreContext";
 
@@ -17,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/kitchen" element={<Kitchen />} />

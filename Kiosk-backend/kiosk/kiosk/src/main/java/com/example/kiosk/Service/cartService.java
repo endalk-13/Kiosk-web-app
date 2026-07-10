@@ -1,27 +1,26 @@
 package com.example.kiosk.Service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.kiosk.Models.Cart;
-import com.example.kiosk.Repo.cartRepo;
+import org.springframework.stereotype.Service;
 
 @Service
 public class cartService {
 
-	private final cartRepo repo;
-    
-	public cartService(cartRepo repo) {
-		this.repo=repo;
-	}
-	
-	public List<Cart> getCart(){
-		return repo.findAll();
-		
-	}
-	
-	public Cart getCartById (long Id) {
-		return repo.findAllById(Id).orElse(null);
-	}
+    private final Cart cart = new Cart();
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void addItem(String item, double price) {
+        cart.addItem(item, price);
+    }
+
+    public void removeItem(String item, double price) {
+        cart.removeItem(item, price);
+    }
+
+    public void clearCart() {
+        cart.clearCart();
+    }
 }
