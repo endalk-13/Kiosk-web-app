@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { StoreProvider } from "./cart/StoreContext";
-import Navbar from "./navbar/Navbar";
-import Home from "./homepage/homepage";
-import Cart from "./cart/cart";
+import Navbar from "./navbar/Navbar.jsx";
+import Home from "./homepage/homepage.jsx";
+import Cart from "./cart/cart.jsx";
 import Checkout from "./payment/checkout.jsx";
 import Kitchen from "./kitchen/Kitchen.jsx";
 
