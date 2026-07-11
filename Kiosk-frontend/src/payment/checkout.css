@@ -67,3 +67,47 @@
 .confirm-btn:hover {
   background-color: #27ae60;
 }
+
+/* --- new: customer info form (name/phone/email step) --- */
+.receipt-customization {
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.customer-form {
+  background: #2a2a2a;
+  width: 320px;
+  padding: 20px;
+  border-radius: 6px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.customer-form h2 {
+  margin: 0 0 4px;
+  font-family: sans-serif;
+}
+
+.customer-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  font-family: sans-serif;
+}
+
+.customer-form input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background: #1e1e1e;
+  color: white;
+  font-size: 1rem;
+}
+
+.field-error {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+}
