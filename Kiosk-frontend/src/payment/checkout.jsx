@@ -1,31 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { useStore } from "../StoreContext";
 import { useNavigate } from "react-router-dom";
-import "./checkout.css"; // We'll create this new file
+import "./checkout.css";
 
 const Checkout = () => {
-  const { cart, sendOrderToKitchen } = useStore();
+  const { cart, cartTotal, customerInfo, setCustomerInfo } = useStore();
   const navigate = useNavigate();
-
-  const grandTotal = cart.reduce(
-    (sum, item) => sum + (item.price || 0) * (item.qty || 1), 
-    0
-  );
-
-  const handleConfirm = () => {
-    // Passing the total so the kitchen can see it
-    sendOrderToKitchen(grandTotal);
-    navigate("/kitchen");
-  };
+  const [errors, setErrors] = useState({});
 
   if (cart.length === 0) {
     return (
-      <div className="receipt-container">
-        <p>Your cart is empty.</p>
-        <button onClick={() => navigate("/")}>Return to Menu</button>
+      <div className="receipt-page">
+        <div className="receipt-card">
+          <p>Your cart is empty.</p>
+        </div>
+        <button className="confirm-btn" onClick={() => navigate("/home")}>Return to Menu</button>
       </div>
     );
   }
+
+  const validate = () => {
+    const e = {};
+    if (!customerInfo.name.trim()) e.name = "Name is required";
+    if (!/^[0-9+\-\s()]{7,}$/.test(customerInfo.phone.trim())) e.phone = "Enter a valid phone number";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerInfo.email.trim())) e.email = "Enter a valid email";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleContinue = () => {
+    if (validate()) navigate("/payment");
+  };
 
   return (
     <div className="receipt-page">
@@ -38,12 +43,18 @@ const Checkout = () => {
 
         <div className="receipt-body">
           {cart.map((item) => (
-            <div key={item.id} className="receipt-row">
+            <div key={item.cartLineId} className="receipt-row">
               <span className="receipt-item-name">
                 {item.qty}x {item.name}
+                {item.customizationSummary && (
+                  <>
+                    <br />
+                    <small className="receipt-customization">{item.customizationSummary}</small>
+                  </>
+                )}
               </span>
               <span className="receipt-item-price">
-                ${((item.price || 0) * (item.qty || 1)).toFixed(2)}
+                ${(item.unitPrice * item.qty).toFixed(2)}
               </span>
             </div>
           ))}
@@ -54,18 +65,42 @@ const Checkout = () => {
         <div className="receipt-footer">
           <div className="receipt-row total">
             <span>TOTAL</span>
-            <span>${grandTotal.toFixed(2)}</span>
+            <span>${cartTotal.toFixed(2)}</span>
           </div>
-          <p className="thank-you">Thank you for your order!</p>
         </div>
-        
-        {/* The "Jagged Edge" at the bottom of the receipt */}
-        <div className="receipt-jagged"></div>
       </div>
 
-      <button className="confirm-btn" onClick={handleConfirm}>
-        Confirm & Send to Kitchen
-      </button>
+      <div className="customer-form">
+        <h2>Your Details</h2>
+        <label>
+          Full Name
+          <input
+            type="text"
+            value={customerInfo.name}
+            onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
+          />
+          {errors.name && <span className="field-error">{errors.name}</span>}
+        </label>
+        <label>
+          Phone Number
+          <input
+            type="tel"
+            value={customerInfo.phone}
+            onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
+          />
+          {errors.phone && <span className="field-error">{errors.phone}</span>}
+        </label>
+        <label>
+          Email
+          <input
+            type="email"
+            value={customerInfo.email}
+            onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
+          />
+          {errors.email && <span className="field-error">{errors.email}</span>}
+        </label>
+        <button className="confirm-btn" onClick={handleContinue}>Continue to Payment</button>
+      </div>
     </div>
   );
 };
