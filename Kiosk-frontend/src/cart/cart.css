@@ -41,3 +41,63 @@
 .total {
   font-size: 18px;
 }
+
+/* --- new: qty controls, remove button, customization line, placeholder image, grand total --- */
+.cart-img-placeholder {
+  width: 120px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  background: #333;
+  border-radius: 4px;
+}
+
+.cart-customization {
+  font-size: 0.85rem;
+  color: #ccc !important;
+  font-style: italic;
+}
+
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.qty-control button {
+  background: #444;
+  color: white;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.remove-btn {
+  align-self: flex-start;
+  background: transparent;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+.remove-btn:hover {
+  background: #e74c3c;
+  color: white;
+}
+
+.cart-grand-total {
+  text-align: right;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #f9f9f9;
+  margin-top: 1rem;
+}

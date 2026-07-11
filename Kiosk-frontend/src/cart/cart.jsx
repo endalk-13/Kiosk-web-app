@@ -1,55 +1,62 @@
 import React from "react";
 import { useStore } from "../StoreContext";
 import { useNavigate } from "react-router-dom";
-import "./Cart.css"; // Make sure to create this file!
-import Custom from "../Custom"; // Import the Custom component
+import "./cart.css";
 
 function Cart() {
-  const { cart } = useStore();
+  const { cart, removeFromCart, updateQty, cartTotal } = useStore();
   const navigate = useNavigate();
 
   return (
     <div className="cart-container">
       <h2>Your Cart</h2>
-      
-      {/* Message if cart is empty */}
+
       {cart.length === 0 && <p>Your cart is currently empty.</p>}
 
       <div className="cart-list">
-        {cart.map((item) => {
-          // Fallbacks: If price or qty are missing, default to 0 and 1 so the app doesn't break
-          const price = item.price || 0; 
-          const qty = item.qty || 1;
-
-          return (
-            <div className="cart-item" key={item.id}>
+        {cart.map((item) => (
+          <div className="cart-item" key={item.cartLineId}>
+            {item.image ? (
               <img src={item.image} alt={item.name} className="cart-img" />
-              
-              <div className="cart-details">
-                <h3>{item.name}</h3>
-                <p>Unit Price: ${price.toFixed(2)}</p>
-                <p>Quantity: {qty}</p>
-                <p className="cart-subtotal">
-                  Subtotal: ${(price * qty).toFixed(2)}
-                </p>
+            ) : (
+              <div className="cart-img cart-img-placeholder">🍽️</div>
+            )}
+
+            <div className="cart-details">
+              <h3>{item.name}</h3>
+              {item.customizationSummary && (
+                <p className="cart-customization">{item.customizationSummary}</p>
+              )}
+              <p>Unit Price: ${item.unitPrice.toFixed(2)}</p>
+
+              <div className="qty-control">
+                <button onClick={() => updateQty(item.cartLineId, -1)} aria-label="Decrease quantity">-</button>
+                <span>{item.qty}</span>
+                <button onClick={() => updateQty(item.cartLineId, 1)} aria-label="Increase quantity">+</button>
               </div>
+
+              <p className="cart-subtotal">
+                Subtotal: ${(item.unitPrice * item.qty).toFixed(2)}
+              </p>
+
+              <button className="remove-btn" onClick={() => removeFromCart(item.cartLineId)}>
+                Remove
+              </button>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
-        <Custom/>
+
       {cart.length > 0 && (
-        <button className="checkout-btn" onClick={() => navigate("/checkout")}>
-          Proceed to Checkout
-        </button>
+        <>
+          <div className="cart-grand-total">Total: ${cartTotal.toFixed(2)}</div>
+          <button className="checkout-btn" onClick={() => navigate("/checkout")}>
+            Proceed to Checkout
+          </button>
+        </>
       )}
     </div>
   );
 }
 
-<<<<<<< HEAD
 export default Cart;
-=======
-export default Cart;
-
->>>>>>> development
