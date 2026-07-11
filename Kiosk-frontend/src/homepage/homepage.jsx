@@ -1,44 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
 import "./homepage.css";
-import { useStore } from "../StoreContext"; // Import the context hook
-import Custom from "../custom"; 
-import cheeseburger from "../assets/cheeseburger.jpg";
-import hamburger from "../assets/hamburger.jpeg";
-import veggieBurger from "../assets/veggieburger.jpg";
-import smashBurger from "../assets/smashburger.jpg";
-import doubleSmashBurger from "../assets/doublesmash.jpg";
+import { useStore } from "../StoreContext";
+import Customize from "../customize/Customize";
+import { BURGERS, SIDES, DRINKS, CATEGORY_EMOJI } from "../menuData";
 
-const foodItems = [
-  { id: 1, name: "Classic Cheeseburger", description: "A juicy beef patty with cheese, lettuce, and tomato", price: 12.99, image: cheeseburger },
-  { id: 2, name: "Classic Hamburger", description: "A classic beef patty with lettuce, tomato, and onion", price: 15.50, image: hamburger },
-  { id: 3, name: "Smash Burger", description: "A smashed beef patty with special sauce and pickles", price: 9.00, image: smashBurger },
-  { id: 4, name: "Veggie Burger", description: "A plant-based burger with fresh vegetables and avocado", price: 22.00, image: veggieBurger },
-  { id: 5, name: "Double Smash Burger", description: "Two smashed beef patties with special sauce and pickles", price: 30.00, image: doubleSmashBurger },
+const TABS = [
+  { key: "BURGER", label: "Burgers", items: BURGERS },
+  { key: "SIDE", label: "Sides", items: SIDES },
+  { key: "DRINK", label: "Drinks", items: DRINKS },
 ];
 
 function Home() {
-  const { addToCart } = useStore(); // Pull the addToCart function from context
+  const { addToCart } = useStore();
+  const [activeTab, setActiveTab] = useState("BURGER");
+  const [customizingItem, setCustomizingItem] = useState(null);
+
+  const activeItems = TABS.find((t) => t.key === activeTab).items;
+
+  const handleQuickAdd = (item) => {
+    addToCart({
+      cartLineId: crypto.randomUUID(),
+      itemId: item.id,
+      name: item.name,
+      category: item.category,
+      image: item.image,
+      basePrice: item.price,
+      unitPrice: item.price,
+      qty: 1,
+      customizationSummary: null,
+    });
+  };
 
   return (
     <div className="home-container">
       <h1>Menu</h1>
+
+      <div className="menu-tabs">
+        {TABS.map((t) => (
+          <button
+            key={t.key}
+            className={`menu-tab ${activeTab === t.key ? "active" : ""}`}
+            onClick={() => setActiveTab(t.key)}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
       <div className="food-grid">
-        {foodItems.map((item) => (
+        {activeItems.map((item) => (
           <div key={item.id} className="food-card">
-            <img src={item.image} alt={item.name} />
+            {item.image ? (
+              <img src={item.image} alt={item.name} />
+            ) : (
+              <div className="food-placeholder">{CATEGORY_EMOJI[item.category]}</div>
+            )}
             <h3>{item.name}</h3>
             <h4>{item.description}</h4>
             <p className="price">${item.price.toFixed(2)}</p>
             <div className="card-buttons">
-              {/* Trigger the function on click */}
-              <button className="add-btn" onClick={() => addToCart(item)}>
+              <button className="add-btn" onClick={() => handleQuickAdd(item)}>
                 Add to Cart
               </button>
-              <button className="details-btn" onClick={() => window.location.href = "/Custom"}>View Details</button>
+              {item.category === "BURGER" && (
+                <button className="details-btn" onClick={() => setCustomizingItem(item)}>
+                  Customize
+                </button>
+              )}
             </div>
           </div>
         ))}
       </div>
+
+      {customizingItem && (
+        <Customize
+          item={customizingItem}
+          onClose={() => setCustomizingItem(null)}
+          onAdd={addToCart}
+        />
+      )}
     </div>
   );
 }
