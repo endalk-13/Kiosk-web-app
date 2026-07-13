@@ -1,4 +1,4 @@
-package com.example.kiosk.Controller;
+/*package com.example.kiosk.Controller;
 
 import com.example.kiosk.Models.Cart;
 import com.example.kiosk.Service.cartService;
@@ -36,3 +36,4 @@ public class cartController {
         cartService.clearCart();
     }
 }
+*/
