@@ -1,4 +1,4 @@
-package com.example.kiosk.Controller;
+/*package com.example.kiosk.Controller;
 
 import com.example.kiosk.Models.menuItems;
 import com.example.kiosk.Service.menuItemService;
@@ -55,4 +55,4 @@ public class MenuItemController {
         menuItemService.deleteItem(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-}
+}*/
