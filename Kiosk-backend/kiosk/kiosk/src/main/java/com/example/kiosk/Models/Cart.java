@@ -1,3 +1,4 @@
+/*
 package com.example.kiosk.Models;
 
 import java.util.ArrayList;
@@ -39,3 +40,5 @@ private List<String> itemsList = new ArrayList<>();
 =======
 }
 >>>>>>> development
+
+*/
