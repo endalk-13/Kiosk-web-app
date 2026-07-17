@@ -1,4 +1,4 @@
-package com.example.kiosk.Service;
+/*package com.example.kiosk.Service;
 
 import com.example.kiosk.Models.Cart;
 import org.springframework.stereotype.Service;
@@ -24,3 +24,4 @@ public class cartService {
         cart.clearCart();
     }
 }
+*/
